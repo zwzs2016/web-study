@@ -1,14 +1,16 @@
 <template>
 <div>
-    <h2>计算属性与监听属性</h2>
-    <select name="" id="" v-model="selected_pro" >
-        <option disabled value="">请选择</option>
-        <option v-for="(item,index) in pro_list" :value="item.name" :key="index">{{item.name}}</option>
-    </select>
-    <select name="" id="" v-model="selected_city">
-        <option disabled value="">请选择</option>
-        <option v-for="(item,index1) in citylist" :value="item.name" :key="index1">{{item.name}}</option>
-    </select>
+    <div class="vs">
+		<h3>计算属性与监听属性</h3>
+	</div>
+    <el-select name="" id="" v-model="selected_pro" >
+        <el-option disabled value="">请选择</el-option>
+        <el-option v-for="(item,index) in pro_list" :value="item.name" :key="index">{{item.name}}</el-option>
+    </el-select>
+    <el-select name="" id="" v-model="selected_city">
+        <el-option disabled value="">请选择</el-option>
+        <el-option v-for="(item,index1) in citylist" :value="item.name" :key="index1">{{item.name}}</el-option>
+    </el-select>
 </div>
 </template>
 <script>

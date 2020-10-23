@@ -1,8 +1,10 @@
 <template>
     <div>
-        <h1>Mysql 连接 测试</h1>
-        <p>{{ mysqltest }}</p>
-        <button @click="mysql_conn">Mysql conn</button>
+        <div class="vs">
+        <h3>Mysql 连接 测试</h3>
+        </div>
+        <p v-if="mysqltest.length>0">{{ mysqltest }}</p>
+        <el-button @click="mysql_conn">Mysql conn</el-button>
         <pre v-highlight>
             <code class="lang-javascript">
                  //vue
@@ -98,10 +100,10 @@ export default {
     }
 }
 </script>
-<style>
-code{
-    text-align: left;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
+<style lang="scss" scoped>
+    code{
+        text-align: left;
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
 </style>

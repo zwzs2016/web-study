@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<h2>vue文件结构</h2>
+		<div class="vs">
+			<h3>vue文件结构</h3>
+		</div>
 		<pre v-highlight>
 			<code class="html">
 				template-
@@ -32,7 +34,18 @@
 						},
 						components:{
 							//组件
-						}
+						},
+						props:[
+						...组件属性
+						'A','B'
+						],
+						//or:
+						props:{
+						...组件属性
+						A:Number,
+						B:String
+						...
+						},
 					}
 				style-
 					-scoped //只作用在此style
@@ -46,9 +59,4 @@
 	}
 </script>
 <style scoped>
-	code{
-		text-align: left;
-		font-weight: bold;
-		font-size: 1.1rem;
-	}
 </style>

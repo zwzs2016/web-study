@@ -1,6 +1,8 @@
 <template>
 	<div>
-		<h1>v-for :key</h1>
+		<div class="vs">
+			<h3>v-for :key</h3>
+		</div>
 		<ul id="items">
 			<li v-for="item in items" :key="item.id" :style="listyle">
 				{{ item.message }}
