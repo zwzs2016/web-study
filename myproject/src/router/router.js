@@ -16,6 +16,8 @@ const study_09=()=>import('../pages/index/components/study_09')
 const js_study01=()=>import('../pages/js/components/study01')
 const js_study02=()=>import('../pages/js/components/study02')
 
+const login=()=>import('../pages/login/')
+
 
 Vue.use(Router)
 
@@ -26,6 +28,9 @@ export default new Router({
 	{
 		path:'/',
 		component:es6_study,
+		meta:{
+			requireAuth:true
+		},
 		children:[
 		{
 			path:'study01',
@@ -90,5 +95,10 @@ export default new Router({
 			
 		]
 	},
+	{
+		path:'/login',
+		name:'login',
+		component:login
+	}
 	]
 })

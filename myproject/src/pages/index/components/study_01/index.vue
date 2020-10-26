@@ -56,6 +56,14 @@
 </template>
 <script>
 	export default{
+		data(){
+			return{
+				ab:''
+			}
+		},
+		beforeCreate(){
+			console.log(this.$store.state.logininfo)
+		}
 	}
 </script>
 <style scoped>

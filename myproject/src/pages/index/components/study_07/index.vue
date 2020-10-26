@@ -3,10 +3,50 @@
 		<div class="vs">
 			<h3>Vuex study</h3>
 		</div>
+		<div>
+			<p>获取store中的值：{{num}}</p>
+			<el-button @click="getnum">获取store</el-button>
+		</div>
+		<div>
+			<pre v-highlight>
+				<code class="javascript">
+					const store=new Vuex.Store({
+						state:{//
+							count:1
+						},
+						motations:{
+							increment(state){
+								state.count++
+							}
+						},
+						actions:{
+
+						},
+						getters:{
+
+						},
+						modules:{
+
+						}
+					})
+				</code>
+			</pre>
+		</div>
 	</div>
 </template>
 <script>
 	export default{
+		data(){
+			return{
+				num: 0
+			}
+		},
+		methods:{
+			getnum(){
+				console.log(this.num)
+				this.num=this.$store.state.count
+			}
+		}
 	}
 </script>
 <style lang="scss" scoped>

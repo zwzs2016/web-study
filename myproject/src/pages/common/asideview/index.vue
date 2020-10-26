@@ -97,7 +97,6 @@ export default {
 				this.isshow=true
 				this.isunfold=false
 				this.z_index=12
-				console.log(this.style.iunfold);
 			}else{
 				this.isshow=false
 				this.isunfold=true
@@ -112,6 +111,7 @@ div{
 	position: fixed;
 	width: 14rem;
 	bottom: 0;
+	left: 0;
 	overflow: hidden;
 	z-index: 9;
 	aside{
@@ -149,8 +149,8 @@ div{
 	.isunfold{
 		position: fixed;
 		font-size: 1.75rem;
-		top: 0;
-		left: 0;
+		top: 1rem;
+		left: 1rem;
 		&:hover{
 			color:#67C23A;
 			transition: .5s;

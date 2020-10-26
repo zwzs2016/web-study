@@ -7,7 +7,6 @@ Vue.use(VueAxios, axios)
 const http = axios.create({
     baseURL: 'http://127.0.0.1:8090',
     timeout: 1000,
-    headers: {'X-Custom-Header': 'foobar'},
     proxy: {
         host: 'http://127.0.0.1',
         port: 8090,
@@ -28,4 +27,4 @@ const http = axios.create({
       }
   })
 
-  export { http , mysql}
+  export {http , mysql}

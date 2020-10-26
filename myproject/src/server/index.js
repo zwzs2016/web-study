@@ -5,11 +5,20 @@ let urls=require('url')
 let jwt=require('jsonwebtoken')
 
 const express = require('express')
+const session=require('express-session')
 const app = express()
 const client=redis.createClient(6379,'127.0.0.1')
 const port=3000
 
 var bodyParser = require('body-parser');
+
+//配置中间件
+app.use(session({
+    secret: "keyboard cat",
+     resave: false,
+     saveUninitialized: true,
+     cookie: ('name', 'value',{maxAge:  5*60*1000,secure: false})
+}));
 
 client.on("ready",function(err){
     if(err){
@@ -72,7 +81,18 @@ app.all('*', function(req, res, next) {                       //深刻了解这�
     next();  
 });
 
-app.get('/',(req,res)=>res.send('Hello,World！'));
+app.post('/loginin',(req,res)=>{
+    console.log("login")
+    req.session.logininfo=true
+    res.send(req.session.logininfo)
+})
+
+app.post('/loginout',(req,res)=>{
+    console.log("loginout")
+    req.session.logininfo=false
+    res.send(req.session.logininfo)
+})
+
 app.post('/url',function(req, res){
     console.log(req.body);
     res.send(" post successfully!");
@@ -90,6 +110,13 @@ app.post('/user/login',(req,res)=>{
         token
     })
 })
+
+app.get('/',(req,res)=>res.send('Hello,World！'))
+
+app.get('/logininfo',(req,res)=>{
+    res.send(session.logininfo)
+})
+
 app.get('/mysqlconn',(req,res)=>{
      // 查询数据
      connection.query('select * from user',function(err,row){
@@ -101,6 +128,11 @@ app.get('/mysqlconn',(req,res)=>{
         res.send(data);
     })
 })
+
+app.get('/islogin',(req,res)=>{
+    // 查询是否登录
+})
+
 
 app.listen(port,()=> console.log(`Example app listening on port ${port}!`));
 

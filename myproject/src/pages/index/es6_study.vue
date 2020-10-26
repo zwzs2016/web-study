@@ -1,25 +1,42 @@
 <template>
 	<div>
-		<h1>Vue学习</h1>
-		<ul class="navigation">
-			<li><el-link href="/study01">Vuecli</el-link></li>
-			<li><el-link href="/study02">vfor</el-link></li>
-			<li><el-link href="/study03">computed/watch</el-link></li>
-			<li><el-link href="/study04">axios</el-link></li>
-			<li><el-link href="/study05">es6methods</el-link></li>
-			<li><el-link href="/study06">mysqlconn</el-link></li>
-			<li><el-link href="/study07">vuex</el-link></li>
-			<li><el-link href="/study08">Componentcommunication</el-link></li>
-			<li><el-link href="/css">css</el-link></li>
+		<el-container>
+			<el-header>
+				<h1>Vue学习</h1>
+				<el-dropdown @command="gologin">
+				<span class="el-dropdown-link">
+					<i class="el-icon-user-solid" style="fontSize:1.5rem"></i>
+				</span>
+				<el-dropdown-menu slot="dropdown">
+					<el-dropdown-item command="login">注销</el-dropdown-item>
+				</el-dropdown-menu>
+				</el-dropdown>
+			</el-header>
+			<el-main>
+				<ul class="navigation">
+				<li><el-link href="/study01">Vuecli</el-link></li>
+				<li><el-link href="/study02">vfor</el-link></li>
+				<li><el-link href="/study03">computed/watch</el-link></li>
+				<li><el-link href="/study04">axios</el-link></li>
+				<li><el-link href="/study05">es6methods</el-link></li>
+				<li><el-link href="/study06">mysqlconn</el-link></li>
+				<li><el-link href="/study07">vuex</el-link></li>
+				<li><el-link href="/study08">Componentcommunication</el-link></li>
+				<li><el-link href="/css">css</el-link></li>
+				<li><el-link href="/js">js</el-link></li>
+			</ul>
+			<router-view />
 			
-			<li><el-link href="/js">js</el-link></li>
-		</ul>
-		<asideview></asideview>
-		<router-view />
+			</el-main>
+			<el-aside width="14rem">
+				<asideview></asideview>
+			</el-aside>
+		</el-container>
 	</div>
 </template>
 <script>
 	import asideview from '@/pages/common/asideview'
+	import {mysql} from '@/config/httpconfig.js'
 	export default{
     name:'es6_study',
     components: {
@@ -29,8 +46,29 @@
 		return{
 		}
 	},
+	beforeCreate(){
+		mysql.get('/logininfo')
+		.then(res=>{
+			if(res.data===false){
+				location.href="/login"
+			}
+			// console.log(res.data)
+		})
+	},
 	methods: {
-		
+		gologin(command){
+			if(command=="login"){
+				mysql.post('/loginout')
+				.then(res=>{
+					if(res.data===false){
+						this.$store.dispatch('logininfo',false)
+						console.log(this.$store.state.logininfo)
+						localStorage.removeItem('login')
+						this.$router.push('/login')
+					}
+				})
+			}
+		}
 	},	
 	}
 </script>
@@ -39,9 +77,16 @@ div,body,p,h1,h2,h3,h4,h5,ul,li,ol,pre,a,aside{
     margin: 0;
     padding: 0;
 }
+ul,li{
+	list-style: none;
+}
 html,body{
 	width: 100%;
 	height: 100%;
+}
+body{
+	&::-webkit-scrollbar { width: 0 !important }
+	-ms-overflow-style: none;
 }
 .navigation{
 	li{
@@ -109,5 +154,31 @@ code{
 	text-align: left;
 	font-weight: bold;
 	font-size: 1.1rem;
+}
+.el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+	position: relative;
+	.el-dropdown{
+		position: absolute;
+		right: 3rem;
+		bottom: 0;
+		top: 0;
+		margin: auto;
+	}
+}
+.el-aside {
+	background-color: #D3DCE6;
+	color: #333;
+	text-align: center;
+	line-height: 200px;
+	height: 100%;
+}
+.el-footer{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 }
 </style>
